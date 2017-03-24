@@ -1,3 +1,4 @@
+MPD_TIMEOUT=5
 function i3s_mpd {
     MPD_SHORT_NAME=${MPD_SHORT_NAME:-"MPD"}
     MPD_FULL_NAME=${MPD_FULL_NAME:-"MPD"}

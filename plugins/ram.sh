@@ -1,3 +1,5 @@
+RAM_TIMEOUT=30
+
 function i3s_ram {
     RAM_SHORT_NAME=${RAM_SHORT_NAME:-"RAM: "}
     RAM_FULL_NAME=${RAM_FULL_NAME:-"Memory: "}

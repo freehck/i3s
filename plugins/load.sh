@@ -1,3 +1,4 @@
+LOAD_TIMEOUT=10
 LOAD_CPU_CORES=`grep -c ^processor /proc/cpuinfo`
 
 function percentize {
