@@ -12,5 +12,4 @@ function i3s_layout {
     
     printf '{"name": "layout", "short_text": "%s", "full_text": "%s", "color": "%s"}' \
 	   "$short_text" "$full_text" "$color"
-    
 }
