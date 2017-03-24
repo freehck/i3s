@@ -1,0 +1,28 @@
+# MAIN CONFIGURATION
+# plugins we want to enable and their order
+USE_PLUGINS="mpd layout volume ram load time"
+# don't use system locale
+LANG=C
+
+# PLUGINS CONFIGURATION
+# mpd plugin
+MPD_OFF_COLOR=$GRAY
+
+# volume plugin
+VOLUME_HIDE_DECIBEL=y
+VOLUME_MUTED_COLOR=$GRAY
+
+# layout plugin
+LAYOUT_COLOR_RU=$GREEN
+LAYOUT_COLOR_US=$YELLOW
+
+# time plugin
+TIME_HIDE_LABEL=y
+
+# ram plugin
+RAM_NORMAL_COLOR=$GREEN_LIGHT
+
+# load plugin
+LOAD_HIDE_LA5=y
+LOAD_HIDE_LA15=y
+LOAD_NORMAL_COLOR=$GREEN_LIGHT
