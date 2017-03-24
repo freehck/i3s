@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # DEFAULTS
-GLOBAL_CONFIG_PATH="/etc/i3s.conf"
+GLOBAL_CONFIG_PATH="/etc/i3s/i3s.conf"
 USER_CONFIG_PATH="$HOME/.i3s.conf"
 
-PLUGINS_DIR=${PLUGINS_DIR:-"/home/freehck/prog/status-bar/plugins"}
+PLUGINS_DIR=${PLUGINS_DIR:-"/usr/lib/i3s/plugins"}
 USE_PLUGINS=${USE_PLUGINS:-"memory load time"}
 
 # color aliases
