@@ -9,3 +9,11 @@
 
 * TODO Build debian package with i3s
 * TODO Add i3s to suggests of i3wm debian package
+* TODO Fix ram plugin for systems without swap
+  I found that without swap "free" tool has a different format. I need
+  to use /proc or /sys to get appropriate values of memory.
+* TODO Move plugin configuration variables out of functions
+* TODO Update default config with all plugin configuration variables
+* TODO Add local plugin directory support
+* TODO Add separate configuration files for plugins
+  It will be needed if I want to split plugins into different packages
