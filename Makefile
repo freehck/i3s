@@ -6,7 +6,7 @@ INSTALL=install
 INS_OPTS = -o root -g root
 
 SCRIPT=$(BIN_DIR)/i3s
-PLUGINS = time load ram
+PLUGINS = time load ram mpd layout volume
 
 install:
 	$(INSTALL) $(INS_OPTS) -d $(CFG_DIR) $(PLUGINS_DIR) $(BIN_DIR)
