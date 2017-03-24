@@ -1,0 +1,11 @@
+* TODO Make refresh period configurable
+* TODO Make support for timeouts
+  Now all plugins are called every time while status
+  refresh. Sometimes this is quite insane. F.e. we don't need to
+  update time plugin more than one time per second. Even more: if user
+  chooses another time format, that doesn't show seconds, it could
+  even be called only every minute. So we need some kind of
+  caching-expiration mechanism to decrease irrational CPU consuming.
+
+* TODO Build debian package with i3s
+* TODO Add i3s to suggests of i3wm debian package

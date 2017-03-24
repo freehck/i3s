@@ -1,0 +1,49 @@
+i3s is a program that was made to replace i3status in the i3 window
+manager.
+
+
+
+Original i3status had some irresolvable issues, such as:
+
+* Leak of functionality
+
+All you can do with i3status is to configure plugins that are
+available in a precompiled binary (original i3status is written in
+C). If you want to modify the view of some existing fields, you must
+recompile it.
+
+* Difficult to add new filed and simultaneously use the ability of
+i3bar to color them
+
+i3status developers suggest you to use a script that pipes i3status
+output and add there some new text. And it's easy with plain-text of
+course, but if i3bar protocol uses json format to color messages. So
+with pipes it's hardly possible to new color fields.
+
+
+
+
+I understand that i3status was written to minimize the number of
+syscalls. But most of us have perfect CPUs and we don't need it. We
+do need functionality. This is why this project was started.
+
+i3s is designed to be very flexible to extend and customize. It's
+written in bash and all this script do is read configuration and run
+plugins in some order.
+
+Configuration is a file ~/.i3s.conf which is sourced by script. You
+can specify the order of plugins to run in variable USE_PLUGINS. Do it
+this way:
+USE_PLUGINS="ram load time"
+
+Plugins are shell-scripts too. There're some conventions. Plugin with
+name <plugin> must be stored in file "<plugin>.sh" and provide
+function "i3s_<plugin>". All the confuguration variables used in this
+plugin must be uppercase and start with "<PLUGIN>_". F.e. plugin "ram"
+must be stored in file "ram.sh", provide function "i3s_ram" and have a
+configuration variables like "RAM_HIGH_COLOR".
+
+
+
+I'm ready to accept patches and new plugins. The file TODO.org has a list
+of prospective things it would be nice to see in i3s.
