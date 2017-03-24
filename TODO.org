@@ -1,5 +1,5 @@
-* TODO Make refresh period configurable
-* TODO Make support for timeouts
+* DONE Make refresh period configurable
+* DONE Make support for timeouts
   Now all plugins are called every time while status
   refresh. Sometimes this is quite insane. F.e. we don't need to
   update time plugin more than one time per second. Even more: if user
