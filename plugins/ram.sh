@@ -1,5 +1,9 @@
 RAM_TIMEOUT=30
 
+function memfield {
+    awk "/^$1/{print \$2}" /proc/meminfo
+}
+
 function i3s_ram {
     RAM_SHORT_NAME=${RAM_SHORT_NAME:-"RAM: "}
     RAM_FULL_NAME=${RAM_FULL_NAME:-"Memory: "}
@@ -17,8 +21,9 @@ function i3s_ram {
 	RAM_FULL_NAME=
     fi
 
-    
-    read total used < <(free | awk '/^Mem:/{printf "%d ", $2} /^-/{print $3}')
+    total=`memfield "MemTotal"`
+    available=`memfield "MemAvailable"`
+    let "used = total - available"
     let "percent = used * 100 / total"
 
     color=

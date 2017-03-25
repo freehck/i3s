@@ -9,7 +9,7 @@
 
 * TODO Build debian package with i3s
 * TODO Add i3s to suggests of i3wm debian package
-* TODO Fix ram plugin for systems without swap
+* DONE Fix ram plugin for systems without swap
   I found that without swap "free" tool has a different format. I need
   to use /proc or /sys to get appropriate values of memory.
 * TODO Move plugin configuration variables out of functions
