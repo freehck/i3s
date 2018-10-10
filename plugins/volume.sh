@@ -13,7 +13,7 @@ if [ -n "$VOLUME_HIDE_LABEL" ]; then
 fi
 
 
-function i3s_volume {
+i3s_volume() {
     unset data color muted sep percent decibel short_text full_text
 
     data=`amixer sget Master | tail -1`

@@ -1,5 +1,5 @@
 MPD_TIMEOUT=5
-function i3s_mpd {
+i3s_mpd() {
     MPD_SHORT_NAME=${MPD_SHORT_NAME:-"MPD"}
     MPD_FULL_NAME=${MPD_FULL_NAME:-"MPD"}
     MPD_OFF_COLOR=${MPD_OFF_COLOR:-"$DEFAULT_COLOR"}

@@ -1,15 +1,15 @@
 LOAD_TIMEOUT=10
 LOAD_CPU_CORES=`grep -c ^processor /proc/cpuinfo`
 
-function percentize {
-    bc <<< "$1 * 100 / 1"
+percentize() {
+    echo "$1 * 100 / 1" | bc
 }
 
-function i3s_load {
+i3s_load() {
     LOAD_SHORT_NAME="LA:";
     LOAD_FULL_NAME="Load:";
 
-    LOAD_MEDIUM=${LOAD_MEDIUM:-`bc <<< "scale=2; $LOAD_CPU_CORES * 2 / 3"`}
+    LOAD_MEDIUM=${LOAD_MEDIUM:-`echo "scale=2; $LOAD_CPU_CORES * 2 / 3" | bc`}
     LOAD_HIGH=${LOAD_HIGH:-$LOAD_CPU_CORES}
 
     LOAD_MEDIUM_PERCENT=${LOAD_MEDIUM_PERCENT:-`percentize $LOAD_MEDIUM`}

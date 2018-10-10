@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/dash
+
+set -e
 
 # DEFAULTS
 GLOBAL_CONFIG_PATH="/etc/i3s/i3s.conf"
@@ -21,16 +23,17 @@ REFRESH_TIMEOUT=1 # in seconds
 
 # IMPLEMENTATION
 # value of reference variable (containing
-function refval {
+refval() {
     echo $(eval "echo \$$1")
 }
 
 # config timeouts
-function config_timeout_var {
-    echo "${1^^}_TIMEOUT"
+config_timeout_var() {
+    temp=$(to_upper "$1")
+    echo "${temp}_TIMEOUT"
 }
 
-function get_config_timeout {
+get_config_timeout() {
     timeout=
     timeout=$(refval $(config_timeout_var $1))
     if [ -z "$timeout" ]; then
@@ -41,51 +44,62 @@ function get_config_timeout {
 }
 
 # timeouts (checking if refresh time for this plugin is out)
-function timeout_var {
-    echo "I3S_${1^^}_TIMEOUT"
+timeout_var() {
+    temp=$(to_upper "$1")
+    echo "I3S_${temp}_TIMEOUT"
 }
 
-function get_timeout {
+get_timeout() {
     echo $(refval $(timeout_var $1))
 }
 
-function set_timeout {
+set_timeout() {
     eval "$(timeout_var $1)=$2"
 }
 
-function check_expired {
-    return `bc <<< "$1 > 0"`
+check_expired() {
+    return `echo "$1 > 0" | bc`
 }
 
 # texts
-function text_var {
+text_var() {
     echo "i3s_$1_text"
 }
 
-function get_text {
+get_text() {
     echo $(refval $(text_var $1))
 }
 
-function set_text {
+set_text() {
     eval "$(text_var $1)='$2'"
 }
 
 # other
-function plugin_file {
+plugin_file() {
     echo "$1.sh"
 }
 
-function plugin_command {
+plugin_command() {
     echo "i3s_$1"
 }
 
+# common library
+
+remove_quotes() {
+    sed -e 's%'\''%%g'
+}
+
+to_upper() {
+    echo "$1" | tr '[:lower:]' '[:upper:]'
+}
+
 # LOAD CONFIGURATION
-[ -e "$GLOBAL_CONFIG_PATH" ] && source "$GLOBAL_CONFIG_PATH"
-[ -e "$USER_CONFIG_PATH" ] && source "$USER_CONFIG_PATH"
+[ -e "$GLOBAL_CONFIG_PATH" ] && . "$GLOBAL_CONFIG_PATH"
+[ -e "$USER_CONFIG_PATH" ] && . "$USER_CONFIG_PATH"
 
 for module in $USE_PLUGINS; do
     file="$PLUGINS_DIR/$(plugin_file "$module")"
-    [ -e "$file" ] && source "$file" && set_timeout "$module" 0
+    [ -e "$file" ] && . "$file" && set_timeout "$module" 0
 done
 
 # RUN
@@ -94,24 +108,24 @@ echo '['
 
 while true
 do
-    text=$'[\n'
+    text='[\n'
     comma=" "
     for module in $USE_PLUGINS
     do
 	timeout=$(get_timeout "$module")
-	new_timeout=`bc <<< "$timeout - $REFRESH_TIMEOUT"`
+	new_timeout=`echo "$timeout - $REFRESH_TIMEOUT" | bc`
 	if check_expired "$new_timeout"; then
-	    plugin_text=$($(plugin_command "$module"))
+	    plugin_text=$($(plugin_command "$module")|remove_quotes)
 	    set_text "$module" "$plugin_text"
 	    set_timeout "$module" $(get_config_timeout "$module")
 	else
 	    plugin_text=$(get_text "$module")
 	    set_timeout "$module" "$new_timeout"
 	fi
-	text+=" $comma$plugin_text"$'\n'
+	text="$text $comma$plugin_text\n"
 	comma=","
     done
-    text+=$'],'
+    text="${text}],"
     echo "$text"
     sleep $REFRESH_TIMEOUT
 done

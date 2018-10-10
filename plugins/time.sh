@@ -1,5 +1,5 @@
 TIME_TIMEOUT=1
-function i3s_time {
+i3s_time() {
     TIME_SHORT_NAME=${TIME_SHORT_NAME:-""}
     TIME_FULL_NAME=${TIME_FULL_NAME:-"Time: "}
     TIME_COLOR=${TIME_COLOR:-"$DEFAULT_COLOR"}
