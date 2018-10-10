@@ -1,26 +1,25 @@
 RAM_TIMEOUT=30
+RAM_SHORT_NAME=${RAM_SHORT_NAME:-"RAM: "}
+RAM_FULL_NAME=${RAM_FULL_NAME:-"Memory: "}
+
+RAM_NORMAL_COLOR=${RAM_NORMAL_COLOR:-"$DEFAULT_COLOR"}
+RAM_MEDIUM_COLOR=${RAM_MEDIUM_COLOR:-"#ff7f00"} # orange
+RAM_HIGH_COLOR=${RAM_HIGH_COLOR:-"#ff0000"} # red
+
+RAM_MEDIUM_PERCENT=${RAM_MEDIUM_PERCENT:-60}
+RAM_HIGH_PERCENT=${RAM_HIGH_PERCENT:-85}
+
+RAM_HIDE_LABEL=${RAM_HIDE_LABEL:-""}
+if [ -n "$RAM_HIDE_LABEL" ]; then
+    RAM_SHORT_NAME=
+    RAM_FULL_NAME=
+fi
 
 memfield() {
     awk "/^$1/{print \$2}" /proc/meminfo
 }
 
 i3s_ram() {
-    RAM_SHORT_NAME=${RAM_SHORT_NAME:-"RAM: "}
-    RAM_FULL_NAME=${RAM_FULL_NAME:-"Memory: "}
-
-    RAM_NORMAL_COLOR=${RAM_NORMAL_COLOR:-"$DEFAULT_COLOR"}
-    RAM_MEDIUM_COLOR=${RAM_MEDIUM_COLOR:-"#ff7f00"} # orange
-    RAM_HIGH_COLOR=${RAM_HIGH_COLOR:-"#ff0000"} # red
-
-    RAM_MEDIUM_PERCENT=${RAM_MEDIUM_PERCENT:-60}
-    RAM_HIGH_PERCENT=${RAM_HIGH_PERCENT:-85}
-
-    RAM_HIDE_LABEL=${RAM_HIDE_LABEL:-""}
-    if [ -n "$RAM_HIDE_LABEL" ]; then
-	RAM_SHORT_NAME=
-	RAM_FULL_NAME=
-    fi
-
     total=`memfield "MemTotal"`
     available=`memfield "MemAvailable"`
     used=$((total - available))

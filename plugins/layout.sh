@@ -1,7 +1,7 @@
-i3s_layout() {
-    LAYOUT_SHORT_NAME=${LAYOUT_SHORT_NAME:-"Lang"}
-    LAYOUT_FULL_NAME=${LAYOUT_SHORT_NAME:-"Language"}
+LAYOUT_SHORT_NAME=${LAYOUT_SHORT_NAME:-"Lang"}
+LAYOUT_FULL_NAME=${LAYOUT_SHORT_NAME:-"Language"}
 
+i3s_layout() {
     lang=`xkblayout-state print '%s'`
 
     color=$(eval "echo \$$(echo LAYOUT_COLOR_$(to_upper "lang"))")
